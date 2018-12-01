@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import './App.css';
 
+// *----------* Sub-components *----------*
+import GalleryList from '../GalleryList/GalleryList';
+
 // *----------* Material UI *----------*
 
 
@@ -43,7 +46,7 @@ class App extends Component {
         <p>Gallery goes here</p>
         <img src="images/goat_small.jpg" />
         <button onClick={this.getGallery}> Click me! </button>
-        <p>{JSON.stringify(this.state.galleryList)}</p>
+        <GalleryList galleryList={this.state.galleryList}/>
       </div>
     );
   }
