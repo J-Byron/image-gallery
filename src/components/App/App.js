@@ -1,4 +1,4 @@
-// *----------* App modules *----------*
+// *----------* React Modules *----------*
 import React, { Component } from 'react';
 import Axios from 'axios';
 import './App.css';
@@ -20,6 +20,7 @@ class App extends Component {
   componentDidMount(){
     // Lifecycle method
     // Runs once when component mounts to dom
+    this.getGallery()
   };
 
   // *----------*  Requests  *----------*
@@ -40,12 +41,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Gallery of my life</h1>
+          <h1 className="App-title">Gallery of my Memes</h1>
         </header>
-        <br />
         <p>Gallery goes here</p>
         <img src="images/goat_small.jpg" />
-        <button onClick={this.getGallery}> Click me! </button>
         <GalleryList galleryList={this.state.galleryList}/>
       </div>
     );
