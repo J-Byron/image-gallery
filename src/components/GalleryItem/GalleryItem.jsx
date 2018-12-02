@@ -33,12 +33,13 @@ const styles = {
         height: 240,
     },
     details: {
-        height: 100,
+        height: 30,
         textAlign: 'center',
         padding: '70px 0px',
         color: styling.text.color,
         fontFamily: styling.text.family,
-        fontSize: styling.text.descriptionSize
+        fontSize: styling.text.descriptionSize,
+        margin:'35px 0px'
     },
     edit: {
         marginLeft: 'auto',
@@ -62,7 +63,7 @@ class GalleryItem extends Component {
     cardComponent = () => {
         const { classes } = this.props;
         const item = this.props.item;
-        console.log(this.state);
+        console.log(`ID: ${item.id} - ${(this.state.isFlipped) ? 'Back': 'Front'}`);
         if (this.state.isFlipped) {
             return (
                 <Card className={classes.card}>
@@ -72,11 +73,11 @@ class GalleryItem extends Component {
                         </div>
                     </CardActionArea>
                     <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
-                        <IconButton>
+                        <IconButton onClick={event=>this.props.increaseLikes(item.id)}>
                             <Thumb_up style={{color: styling.pallete.icons}}/>
                         </IconButton>
                         <p>{item.likes}</p>
-                        <IconButton className={classes.edit}>
+                        <IconButton className={classes.edit} >
                             <Edit style={{color: styling.pallete.icons}} />
                         </IconButton>
                     </CardActions>
@@ -94,7 +95,7 @@ class GalleryItem extends Component {
                         />
                     </CardActionArea>
                     <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
-                        <IconButton>
+                        <IconButton onClick={event=>this.props.increaseLikes(item.id)}>
                             <Thumb_up style={{color: styling.pallete.icons}}/>
                         </IconButton>
                         <p>{item.likes}</p>

@@ -35,6 +35,14 @@ class App extends Component {
       });
   }
 
+  increaseLikes = (id) =>{
+    console.log(`${id}`);
+    Axios.put(`/gallery/like/${id}`).then((response)=>{
+      this.getGallery();
+    }).catch((err)=>{
+      console.log(`Error from server: ${err}`);
+    })
+  }
 
   // *----------* Render sub-Components *----------*
   render() {
@@ -43,7 +51,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Gallery of my Memes</h1>
         </header>
-        <GalleryList galleryList={this.state.galleryList}/>
+        <GalleryList increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
       </div>
     );
   }
