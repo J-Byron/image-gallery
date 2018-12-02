@@ -10,7 +10,7 @@ export default class GalleryList extends Component {
             //{ id: , path: , description:, likes: }
             return (
                 // Thinking you'd include gallery item here and send it the parts <GalleryItem item={item}>
-                <GalleryItem key ={item.id} item={item}/>
+                <GalleryItem increaseLikes={this.props.increaseLikes} key ={item.id} item={item}/>
             );
         })
 
