@@ -27,7 +27,7 @@ const styles = {
         maxWidth: 345,
         display: 'inline-block',
         backgroundColor: styling.pallete.background,
-        boxShadow: '5px 10px 8px rgba(20, 20, 20, 0.2)'
+        boxShadow: '0px 0px 30px rgba(20, 20, 20, 0.3)'
     },
     media: {
         height: 240,
@@ -90,7 +90,7 @@ class GalleryItem extends Component {
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image={item.path}
+                            image={item.imgpath}
                             onClick={this.handleMediaClick}
                         />
                     </CardActionArea>

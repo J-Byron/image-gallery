@@ -1,24 +1,57 @@
+// *----------* Modules *----------*
 const express = require('express');
 const router = express.Router();
 const galleryItems = require('../modules/gallery.data');
 
-// DO NOT MODIFY THIS FILE FOR BASE MODE
+// *----------* Pool *----------*
+const config = {
+    host: 'localhost', 
+    port: 5432, 
+    database: 'gallery', 
+    max: 10,
+    idleTimeoutMillis: 30000
+}
 
-// PUT Route
+const pg = require('pg');
+const Pool = pg.Pool;
+const pool = new Pool(config);
+
+pool.on('connect', () => {
+    console.log('Postgesql connected');
+  });
+  
+pool.on('error', (err) => {
+    console.log('Unexpected error on idle client', err);
+});
+
+// *----------* Routes *----------*
 router.put('/like/:id', (req, res) => {
     console.log(req.params);
     const galleryId = req.params.id;
-    for(const galleryItem of galleryItems) {
-        if(galleryItem.id == galleryId) {
-            galleryItem.likes += 1;
-        }
-    }
-    res.sendStatus(200);
+    const queryString = 'UPDATE items SET likes=likes+1	Where id=$1;'
+
+    pool.query(queryString,[galleryId])
+    .then((results)=>{
+        res.sendStatus(204);
+    })
+    .catch((err)=>{
+        console.log(`Error from DB in put: ${err}`);
+        res.sendStatus(500);
+    })
 }); // END PUT Route
 
 // GET Route
 router.get('/', (req, res) => {
-    res.send(galleryItems);
+    // Need to ORDER by to ensure consistency in DB
+    const queryString = 'SELECT * FROM items ORDER BY id DESC;';
+
+    pool.query(queryString).then((results)=>{
+        console.log(results.rows);
+        res.send(results.rows)
+    }).catch((err)=>{
+        console.log(`Error from DB in GET: ${err}`);
+        res.sendStatus(500);
+    });
 }); // END GET Route
 
 module.exports = router;
