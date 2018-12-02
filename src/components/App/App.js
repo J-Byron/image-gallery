@@ -39,12 +39,10 @@ class App extends Component {
   // *----------* Render sub-Components *----------*
   render() {
     return (
-      <div className="App">
+      <div className="App" style={{backgroundColor: '', height: 100 + '%'}}>
         <header className="App-header">
           <h1 className="App-title">Gallery of my Memes</h1>
         </header>
-        <p>Gallery goes here</p>
-        <img src="images/goat_small.jpg" />
         <GalleryList galleryList={this.state.galleryList}/>
       </div>
     );

@@ -6,10 +6,18 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Thumb_up from '@material-ui/icons/ThumbUp';
+import Edit from '@material-ui/icons/Edit';
+
+// *----------* Styling *----------*
+const pallete = {text:'#22264b',background:'#e6cf8b',icons:'#b56969',footerBar:'#e8edf3'}
+
+const styling = {
+    pallete : {background:'rgb(241, 207, 199)',icons:'#b56969',footerBar:'#e8edf3'},
+    text : {color:'#22264b',descriptionSize:'20px',likeSize:'20px',family:'Helvetica Neue, Helvetica, Arial, sans-serif'}
+}
 
 const styles = {
     card: {
@@ -17,53 +25,99 @@ const styles = {
         width: 345,
         margin: 10,
         maxWidth: 345,
-        display: 'inline-block'
+        display: 'inline-block',
+        backgroundColor: styling.pallete.background,
+        boxShadow: '5px 10px 8px rgba(20, 20, 20, 0.2)'
     },
     media: {
-        height: 250,
+        height: 240,
     },
+    details: {
+        height: 100,
+        textAlign: 'center',
+        padding: '70px 0px',
+        color: styling.text.color,
+        fontFamily: styling.text.family,
+        fontSize: styling.text.descriptionSize
+    },
+    edit: {
+        marginLeft: 'auto',
+        marginRight: -8
+    },
+    p:{
+        color: styling.text.color,
+        fontFamily: styling.text.family,
+        fontSize: styling.text.likeSize
+    }
 };
 
 // *----------*  Gallery Item *----------*
 class GalleryItem extends Component {
+    // *----------* State *----------*
     state = {
-        isFlipped : false
+        isFlipped: false
     }
 
-    handleMediaClick = () =>{
+    // *----------* Components *----------*
+    cardComponent = () => {
+        const { classes } = this.props;
+        const item = this.props.item;
+        console.log(this.state);
+        if (this.state.isFlipped) {
+            return (
+                <Card className={classes.card}>
+                    <CardActionArea>
+                        <div className={classes.details} onClick={this.handleMediaClick}>
+                            {item.description}
+                        </div>
+                    </CardActionArea>
+                    <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
+                        <IconButton>
+                            <Thumb_up style={{color: styling.pallete.icons}}/>
+                        </IconButton>
+                        <p>{item.likes}</p>
+                        <IconButton className={classes.edit}>
+                            <Edit style={{color: styling.pallete.icons}} />
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            );
+
+        } else {
+            return (
+                <Card className={classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                            className={classes.media}
+                            image={item.path}
+                            onClick={this.handleMediaClick}
+                        />
+                    </CardActionArea>
+                    <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
+                        <IconButton>
+                            <Thumb_up style={{color: styling.pallete.icons}}/>
+                        </IconButton>
+                        <p>{item.likes}</p>
+                        <IconButton className={classes.edit}>
+                            <Edit style={{color: styling.pallete.icons}}/>
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            );
+        }
+    }
+
+    // *----------* Handlers *----------*
+    handleMediaClick = () => {
+        // Change state of card
         this.setState({
             isFlipped: !this.state.isFlipped
-        },()=>{
-            console.log(this.state);
         })
-
-        
     }
 
     render() {
-        const { classes } = this.props;
-        const item = this.props.item;
-
-        return (
-            <Card className={classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={item.path}
-                        onClick={this.handleMediaClick}
-                    />
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Like
-                    </Button>
-                    <Button size="small" color="primary">
-                        Edit
-                    </Button>
-                </CardActions>
-            </Card>
-
-        );
+        // Card is rerendered whenever state is changes (description displayed)
+        return this.cardComponent();
     }
 }
 
