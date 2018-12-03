@@ -35,6 +35,16 @@ class App extends Component {
       });
   }
 
+  addItem = (item) =>[
+    Axios.post('/gallery',item)
+    .then((response)=>{
+      this.getGallery();
+    })
+    .catch((err)=>{
+      console.log(`Error from Server ${err}`);
+    })
+  ]
+
   increaseLikes = (id) =>{
     console.log(`${id}`);
     Axios.put(`/gallery/like/${id}`).then((response)=>{
@@ -48,10 +58,10 @@ class App extends Component {
   render() {
     return (
       <div className="App" style={{backgroundColor: '', height: 100 + '%'}}>
-        <header className="App-header">
-          <h1 className="App-title">Gallery of my Memes</h1>
+        <header className="App-header" style={{backgroundColor:'#537780'}}>
+          <h1 className="App-title" style={{color:'#fffcca',fontSize: 40+'px' }}>The Memery</h1>
         </header>
-        <GalleryList increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
+        <GalleryList addItem={this.addItem} increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
       </div>
     );
   }

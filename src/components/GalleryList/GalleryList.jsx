@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GalleryAddItem from '../GalleryAddItem/GalleryAddItem';
 import GalleryItem from '../GalleryItem/GalleryItem';
 
 // This component will act as the container for each card we display
@@ -15,7 +16,10 @@ export default class GalleryList extends Component {
         })
 
         return(
-            <ul style= {{padding: 0 + 'px'}} > {galleryList} </ul>
+            <ul style= {{padding: 0 + 'px'}} >
+            <GalleryAddItem addItem={this.props.addItem}/>
+            {galleryList} 
+            </ul>
         )
     }
 }

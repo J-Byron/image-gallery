@@ -54,4 +54,16 @@ router.get('/', (req, res) => {
     });
 }); // END GET Route
 
+router.post('/',(req,res)=>{
+    console.log(`Posting ${req.body.description}`);
+    const item = req.body;
+    const queryString = `INSERT INTO items(imgPath,description,likes) VALUES ($1,$2,0);`;
+    pool.query(queryString,[item.imgPath, item.description]).then((results)=>{
+        res.sendStatus(204);
+    }).catch((err)=>{
+        console.log(`Error from DB in post: ${err}`);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;
