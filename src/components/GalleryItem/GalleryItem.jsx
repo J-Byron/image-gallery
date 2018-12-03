@@ -12,11 +12,10 @@ import Thumb_up from '@material-ui/icons/ThumbUp';
 import Edit from '@material-ui/icons/Edit';
 
 // *----------* Styling *----------*
-const pallete = {text:'#22264b',background:'#e6cf8b',icons:'#b56969',footerBar:'#e8edf3'}
 
 const styling = {
-    pallete : {background:'rgb(241, 207, 199)',icons:'#b56969',footerBar:'#e8edf3'},
-    text : {color:'#22264b',descriptionSize:'20px',likeSize:'20px',family:'Helvetica Neue, Helvetica, Arial, sans-serif'}
+    pallete : {background:'#537780',icons:'#11d3bc',footerBar:'#fffcca'},
+    text : {color:'#fffcca',descriptionSize:'20px',likeSize:'20px',family:'Helvetica Neue, Helvetica, Arial, sans-serif'}
 }
 
 const styles = {
