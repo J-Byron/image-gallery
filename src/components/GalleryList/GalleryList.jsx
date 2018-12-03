@@ -16,7 +16,7 @@ export default class GalleryList extends Component {
         })
 
         return(
-            <ul style= {{padding: 0 + 'px'}} >
+            <ul style= {{padding: 0 + 'px',marginTop: 100 + 'px'}} >
             <GalleryAddItem addItem={this.props.addItem}/>
             {galleryList} 
             </ul>

@@ -1,7 +1,6 @@
 // *----------* Modules *----------*
 const express = require('express');
 const router = express.Router();
-const galleryItems = require('../modules/gallery.data');
 
 // *----------* Pool *----------*
 const config = {

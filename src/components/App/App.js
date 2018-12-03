@@ -5,6 +5,7 @@ import './App.css';
 
 // *----------* Sub-components *----------*
 import GalleryList from '../GalleryList/GalleryList';
+//import Searchbar from '../Searchbar/Searchbar';
 
 // *----------* Material UI *----------*
 
@@ -70,6 +71,7 @@ class App extends Component {
         <header className="App-header" style={{backgroundColor:'#537780'}}>
           <h1 className="App-title" style={{color:'#fffcca',fontSize: 40+'px' }}></h1>
         </header>
+        {/* <Searchbar/> */}
         <GalleryList deleteItem= {this.deleteItem} addItem={this.addItem} increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
       </div>
     );

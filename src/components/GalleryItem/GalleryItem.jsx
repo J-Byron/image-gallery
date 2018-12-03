@@ -33,7 +33,7 @@ const styles = {
         height: 240,
     },
     details: {
-        height: 30,
+        height:30,
         textAlign: 'center',
         padding: '70px 0px',
         color: styling.text.color,
@@ -92,7 +92,7 @@ cardComponent = () => {
     const { classes } = this.props;
     const item = this.props.item;
 
-    console.log(`ID: ${item.id} - ${(this.state.isFlipped) ? 'Back' : 'Front'}`);
+    //console.log(`ID: ${item.id} - ${(this.state.isFlipped) ? 'Back' : 'Front'}`);
     if (this.state.isFlipped) {
         return (
             <Card className={classes.card}>

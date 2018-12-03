@@ -1,13 +1,24 @@
 
-// *----------* Modules *----------*
+// *----------* React *----------*
 import React, { Component } from 'react';
+
+// *----------* SweetAlrt *----------*
 import swal from 'sweetalert2';
+
+// *----------* Uppy *----------*
+// import Uppy from '@uppy/core';
+// import Dashboard from'@uppy/dashboard';
+// import GoogleDrive from'@uppy/google-drive';
+// import Dropbox  from '@uppy/dropbox';
+// import Instagram from '@uppy/instagram';
+// import Tus from '@uppy/tus';
 
 // *----------* Material UI *----------*
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
+// *----------* Styling *----------*
 const styles = {
     card: {
         height: 300,
