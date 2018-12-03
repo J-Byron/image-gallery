@@ -66,4 +66,19 @@ router.post('/',(req,res)=>{
     })
 })
 
+router.delete('/delete/:id',(req,res)=>{
+    console.log(req.params);
+    const galleryId = req.params.id;
+    const queryString = 'DELETE FROM items Where id=$1;'
+
+    pool.query(queryString,[galleryId])
+    .then((results)=>{
+        res.sendStatus(204);
+    })
+    .catch((err)=>{
+        console.log(`Error from DB in put: ${err}`);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;

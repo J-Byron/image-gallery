@@ -1,5 +1,6 @@
 // *----------*  React Modules *----------*
 import React, { Component } from 'react';
+import swal from 'sweetalert2';
 
 // *----------* Material UI *----------*
 import { withStyles } from '@material-ui/core/styles';
@@ -9,13 +10,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Thumb_up from '@material-ui/icons/ThumbUp';
-import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 
 // *----------* Styling *----------*
 
 const styling = {
-    pallete : {background:'#537780',icons:'#11d3bc',footerBar:'#fffcca'},
-    text : {color:'#fffcca',descriptionSize:'20px',likeSize:'20px',family:'Helvetica Neue, Helvetica, Arial, sans-serif'}
+    pallete: { background: '#537780', icons: '#11d3bc', footerBar: '#fffcca', delete: '#db2d43' },
+    text: { color: '#fffcca', descriptionSize: '20px', likeSize: '20px', family: 'Helvetica Neue, Helvetica, Arial, sans-serif' }
 }
 
 const styles = {
@@ -38,13 +39,13 @@ const styles = {
         color: styling.text.color,
         fontFamily: styling.text.family,
         fontSize: styling.text.descriptionSize,
-        margin:'35px 0px'
+        margin: '35px 0px'
     },
-    edit: {
+    delete: {
         marginLeft: 'auto',
         marginRight: -8
     },
-    p:{
+    p: {
         color: styling.text.color,
         fontFamily: styling.text.family,
         fontSize: styling.text.likeSize
@@ -58,55 +59,6 @@ class GalleryItem extends Component {
         isFlipped: false
     }
 
-    // *----------* Components *----------*
-    cardComponent = () => {
-        const { classes } = this.props;
-        const item = this.props.item;
-        console.log(`ID: ${item.id} - ${(this.state.isFlipped) ? 'Back': 'Front'}`);
-        if (this.state.isFlipped) {
-            return (
-                <Card className={classes.card}>
-                    <CardActionArea>
-                        <div className={classes.details} onClick={this.handleMediaClick}>
-                            {item.description}
-                        </div>
-                    </CardActionArea>
-                    <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
-                        <IconButton onClick={event=>this.props.increaseLikes(item.id)}>
-                            <Thumb_up style={{color: styling.pallete.icons}}/>
-                        </IconButton>
-                        <p>{item.likes}</p>
-                        <IconButton className={classes.edit} >
-                            <Edit style={{color: styling.pallete.icons}} />
-                        </IconButton>
-                    </CardActions>
-                </Card>
-            );
-
-        } else {
-            return (
-                <Card className={classes.card}>
-                    <CardActionArea>
-                        <CardMedia
-                            className={classes.media}
-                            image={item.imgpath}
-                            onClick={this.handleMediaClick}
-                        />
-                    </CardActionArea>
-                    <CardActions style={{backgroundColor: styling.pallete.footerBar}}>
-                        <IconButton onClick={event=>this.props.increaseLikes(item.id)}>
-                            <Thumb_up style={{color: styling.pallete.icons}}/>
-                        </IconButton>
-                        <p>{item.likes}</p>
-                        <IconButton className={classes.edit}>
-                            <Edit style={{color: styling.pallete.icons}}/>
-                        </IconButton>
-                    </CardActions>
-                </Card>
-            );
-        }
-    }
-
     // *----------* Handlers *----------*
     handleMediaClick = () => {
         // Change state of card
@@ -115,10 +67,80 @@ class GalleryItem extends Component {
         })
     }
 
-    render() {
-        // Card is rerendered whenever state is changes (description displayed)
-        return this.cardComponent();
+    handleDeleteClick = (id) => {
+        swal({
+            type: 'warning',
+            title: `Are you sure you want to delete this post?`,
+            background: '#fffcca',
+            confirmButtonText: 'Delete',
+            confirmButtonColor: '#ee3066',
+            showCancelButton: true,
+            animation: "slide-from-top"
+        }).then((result) => {
+            if (!(result.value === undefined)) {
+                this.props.deleteItem(id);
+            }
+        })
     }
+
+
+// *----------* Components *----------*
+
+// Created a function because no if statements are allowed inside a return
+cardComponent = () => {
+
+    const { classes } = this.props;
+    const item = this.props.item;
+
+    console.log(`ID: ${item.id} - ${(this.state.isFlipped) ? 'Back' : 'Front'}`);
+    if (this.state.isFlipped) {
+        return (
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <div className={classes.details} onClick={this.handleMediaClick}>
+                        {item.description}
+                    </div>
+                </CardActionArea>
+                <CardActions style={{ backgroundColor: styling.pallete.footerBar }}>
+                    <IconButton onClick={event => this.props.increaseLikes(item.id)}>
+                        <Thumb_up style={{ color: styling.pallete.icons }} />
+                    </IconButton>
+                    <p>{item.likes}</p>
+                    <IconButton className={classes.delete} onClick={event => this.handleDeleteClick(item.id)}>
+                        <Delete style={{ color: styling.pallete.delete }} />
+                    </IconButton>
+                </CardActions>
+            </Card>
+        );
+
+    } else {
+        return (
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image={item.imgpath}
+                        onClick={this.handleMediaClick}
+                    />
+                </CardActionArea>
+                <CardActions style={{ backgroundColor: styling.pallete.footerBar }}>
+                    <IconButton onClick={event => this.props.increaseLikes(item.id)}>
+                        <Thumb_up style={{ color: styling.pallete.icons }} />
+                    </IconButton>
+                    <p>{item.likes}</p>
+                    <IconButton className={classes.delete} onClick={event => this.handleDeleteClick(item.id)}>
+                        <Delete style={{ color: styling.pallete.delete }} />
+                    </IconButton>
+                </CardActions>
+            </Card>
+        );
+    }
+}
+
+render() {
+    // Card is rerendered whenever state is changes (description displayed)
+    return this.cardComponent();
+}
 }
 
 export default withStyles(styles)(GalleryItem);

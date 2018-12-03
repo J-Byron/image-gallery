@@ -1,7 +1,7 @@
 
 // *----------* Modules *----------*
 import React, { Component } from 'react';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 // *----------* Material UI *----------*
 import { withStyles } from '@material-ui/core/styles';
@@ -32,11 +32,13 @@ class GalleryAddItem extends Component {
 
     handleClick = () => {
         swal({
-            title: 'Create a task',
+            title: 'Create post',
+            background: '#fffcca',
             html:
                 '<input id="imgIn" class="swal2-input" placeholder="Insert an image">' +
                 '<input id="descIn" class="swal2-input" placeholder="Write a short description here">',
             confirmButtonText: 'Post',
+            confirmButtonColor:'#537780',
             inputPlaceholder: "ex. Submit Prime feedback",
             showCancelButton: true,
             animation: "slide-from-top",
@@ -69,7 +71,7 @@ class GalleryAddItem extends Component {
             <Card className={classes.card}>
                 <CardActionArea>
                     <div className={classes.details} onClick={this.handleClick}>
-                        Add meme
+                        New Post
                         </div>
                 </CardActionArea>
             </Card>
