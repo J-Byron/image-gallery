@@ -45,6 +45,15 @@ class App extends Component {
     })
   ]
 
+  deleteItem = (id) =>{
+    Axios.delete(`/gallery/delete/${id}`)
+    .then((response)=>{
+      this.getGallery()
+    }).catch((err)=>{
+      console.log(`Error from server ${err}`);
+    })
+  }
+
   increaseLikes = (id) =>{
     console.log(`${id}`);
     Axios.put(`/gallery/like/${id}`).then((response)=>{
@@ -59,9 +68,9 @@ class App extends Component {
     return (
       <div className="App" style={{backgroundColor: '', height: 100 + '%'}}>
         <header className="App-header" style={{backgroundColor:'#537780'}}>
-          <h1 className="App-title" style={{color:'#fffcca',fontSize: 40+'px' }}>The Memery</h1>
+          <h1 className="App-title" style={{color:'#fffcca',fontSize: 40+'px' }}></h1>
         </header>
-        <GalleryList addItem={this.addItem} increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
+        <GalleryList deleteItem= {this.deleteItem} addItem={this.addItem} increaseLikes={this.increaseLikes} galleryList={this.state.galleryList}/>
       </div>
     );
   }
